@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-17 11:40:11
- * @LastEditTime: 2021-04-20 00:10:01
+ * @LastEditTime: 2021-04-21 23:23:53
  * @LastEditors: mTm
  */
 import * as path from 'path';
@@ -10,7 +10,7 @@ import * as fs from 'fs';
 import { File as F } from 'koa-multer'
 import { Context } from 'koa'
 import { ControllerFile } from '../interface/class/file.interface.class'
-import { FileCtx, ShowCtx, File } from '../interface/file.interface'
+import { FileCtx, File } from '../interface/file.interface'
 
 import service from '../service/file.service';
 
@@ -42,7 +42,7 @@ class FileController implements ControllerFile {
     }
     async show(ctx: Context, next: () => Promise<any>) {
         try {
-            const { filename } = (ctx as ShowCtx).request.params;
+            const { filename } = ctx.params;
             const { type } = ctx.query;
 
             const fileInfo: any = await service.getFileByFilename(filename);
