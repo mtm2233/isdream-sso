@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-22 22:49:44
- * @LastEditTime: 2021-04-22 23:00:00
+ * @LastEditTime: 2021-04-22 23:12:41
  * @LastEditors: mTm
  */
 import { 
@@ -14,31 +14,30 @@ import {
 } from '../../interface/common.interface'
 
 const createConfig: CreateConfig  = {
-    database: 'article',
-    where: [],
+    tableName: 'article',
     data: [],
 }
 
 const removeConfig: RemoveConfig  = {
-    database: 'article',
+    tableName: 'article',
     where: [],
     id_key: 'articleId',
 }
 
 const listConfig: ListConfig  = {
-    database: 'article',
+    tableName: 'article',
     where: [],
 }
 
 const updateConfig: UpdateConfig  = {
-    database: 'article',
+    tableName: 'article',
     where: [],
     data: [],
     id_key: 'articleId',
 }
 
 const detailConfig: DetailConfig  = {
-    database: 'article',
+    tableName: 'article',
     where: [],
     id_key: 'articleId',
 }
