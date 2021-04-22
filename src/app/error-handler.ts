@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-03-28 13:02:11
- * @LastEditTime: 2021-04-19 15:04:29
+ * @LastEditTime: 2021-04-22 23:35:22
  * @LastEditors: mTm
  */
 import * as errorType from '../constants/error-types';
@@ -28,6 +28,14 @@ const failCodeMap = new Map([
     [errorType.File_IS_NOT_ARRAY, {
         message: '文件读取失败',
         status: 500,
+    }],
+    [errorType.MISSING_PARAMETER, {
+        message: '缺少参数',
+        status: 415,
+    }],
+    [errorType.ERROR_PARAMETER, {
+        message: '参数错误',
+        status: 400,
     }]
 ]);
 

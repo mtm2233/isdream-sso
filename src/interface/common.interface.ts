@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-21 23:32:51
- * @LastEditTime: 2021-04-22 23:12:31
+ * @LastEditTime: 2021-04-22 23:25:18
  * @LastEditors: mTm
  */
 interface KV {
@@ -18,12 +18,12 @@ interface DataKV {
 
 interface CommonConfig {
     tableName: string;
-    where: string[] | KV[];
+    where: KV[];
 }
  
 interface CreateConfig {
     tableName: string;
-    data: string[] | DataKV[];
+    data: DataKV[];
 }
 
 interface RemoveConfig extends CommonConfig {

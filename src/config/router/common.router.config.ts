@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-22 22:49:44
- * @LastEditTime: 2021-04-22 23:12:41
+ * @LastEditTime: 2021-04-22 23:18:00
  * @LastEditors: mTm
  */
 import { 
@@ -15,7 +15,16 @@ import {
 
 const createConfig: CreateConfig  = {
     tableName: 'article',
-    data: [],
+    data: [
+        {
+            key: 'content',
+            require: true,
+        },
+        {
+            key: 'user_id',
+            require: true,
+        },
+    ],
 }
 
 const removeConfig: RemoveConfig  = {

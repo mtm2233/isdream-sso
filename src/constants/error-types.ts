@@ -10,6 +10,8 @@ const UN_AUTH_ORIZATION = 'un_auth_orization';
 const UN_AUTH_PERMISSION = 'un_auth_permission';
 const CONTENT_DOES_NOT_EXISTS = 'content_does_not_exists';
 const File_IS_NOT_ARRAY = 'file_is_not_array'
+const MISSING_PARAMETER = 'missing_parameter'
+const ERROR_PARAMETER = 'error_parameter'
 
 export {
     SERVICE_ERROR,
@@ -17,4 +19,6 @@ export {
     UN_AUTH_PERMISSION,
     CONTENT_DOES_NOT_EXISTS,
     File_IS_NOT_ARRAY,
+    MISSING_PARAMETER,
+    ERROR_PARAMETER
 }
