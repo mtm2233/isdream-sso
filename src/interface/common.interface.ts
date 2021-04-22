@@ -20,13 +20,13 @@ interface CommonConfig {
     database: string;
     where: string[] | KV[];
 }
-
+ 
 interface CreateConfig extends CommonConfig {
     data: string[] | DataKV[];
 }
 
 interface RemoveConfig extends CommonConfig {
-
+    id_key: string;
 }
 
 interface ListConfig extends CommonConfig {
@@ -35,10 +35,11 @@ interface ListConfig extends CommonConfig {
 
 interface UpdateConfig extends CommonConfig {
     data: string[] | DataKV[];
+    id_key: string;
 }
 
 interface DetailConfig extends CommonConfig {
-
+    id_key: string;
 }
 
 
