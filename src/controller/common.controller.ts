@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-21 23:30:39
- * @LastEditTime: 2021-04-23 00:05:20
+ * @LastEditTime: 2021-04-23 00:50:09
  * @LastEditors: mTm
  */
 import { Context } from 'koa'
@@ -38,8 +38,8 @@ class CommonController implements ControllerCommon {
                     return false;
                 }
 
-                // 去除val为空的元素
-                config.data = data.filter(v => v.val);
+                // 去除val为undefined的元素
+                config.data = data.filter(v => v.val !== undefined);
                 
                 // 添加 操作数据库
                 await service.create(config)
@@ -72,7 +72,23 @@ class CommonController implements ControllerCommon {
 
     list(config: ListConfig){
         return async (ctx: Context, next: () => Promise<any>) => {
-        
+            try {
+                const query: any = ctx.request.query;
+                config.where = config.where.map(v => ({
+                    ...v,
+                    val: query[v.key] || v.val,
+                    compare: v.compare.toUpperCase() || '='.toUpperCase()
+                })).filter( v => v.val !== undefined);
+
+                const result = await service.list(config);
+
+                ctx.body = {
+                    data: result,
+                    message: '获取列表成功'
+                }
+            } catch (error) {
+                ctx.app.emit('error', error, ctx);
+            }
         }
     }
 

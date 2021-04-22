@@ -2,12 +2,13 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-21 23:32:51
- * @LastEditTime: 2021-04-23 00:04:13
+ * @LastEditTime: 2021-04-23 00:17:56
  * @LastEditors: mTm
  */
 interface KV {
     key: string;
     val?: number | string | null;
+    compare?: string;
 }
 
 interface DataKV {

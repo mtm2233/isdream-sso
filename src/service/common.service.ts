@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-21 23:31:22
- * @LastEditTime: 2021-04-23 00:09:40
+ * @LastEditTime: 2021-04-23 00:48:32
  * @LastEditors: mTm
  */
 import connection from '../app/database'
@@ -51,7 +51,31 @@ class CommonService implements ServiceCommon {
     }
 
     async list(config: ListConfig) {
+        const { tableName, where } = config;
+
+        const whereList: string[] = [];
+        const vals: any[] = [];
+        where.forEach(({key, val, compare}) => {
+            switch (compare) {
+                case 'LIKE': 
+                    whereList.push(`${key} ${compare} '%${val}%'`);
+                    break;
+                case 'IS': 
+                    whereList.push(`${key} ${compare} ${val}`);
+                    break;
+                default:
+                    whereList.push(`${key} ${compare} ?`);
+                    vals.push(val)
+            }
+        });
+
+        const statement = `
+            SELECT * FROM ${tableName} WHERE ${whereList.join('&&')}
+        `;
         
+        const [result] = await connection.execute(statement, vals);
+
+        return result
     }
 
     async update(config: UpdateConfig) {

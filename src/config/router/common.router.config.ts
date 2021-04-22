@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-22 22:49:44
- * @LastEditTime: 2021-04-22 23:58:57
+ * @LastEditTime: 2021-04-23 00:19:38
  * @LastEditors: mTm
  */
 import { 
@@ -34,7 +34,16 @@ const removeConfig: RemoveConfig  = {
 
 const listConfig: ListConfig  = {
     tableName: 'article',
-    where: [],
+    where: [
+        {
+            key: 'content',
+            compare: 'LIKE',
+        },
+        {
+            key: 'user_id',
+            compare: '=',
+        }
+    ],
 }
 
 const updateConfig: UpdateConfig  = {
