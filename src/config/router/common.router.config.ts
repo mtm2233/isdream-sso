@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-22 22:49:44
- * @LastEditTime: 2021-04-22 23:18:00
+ * @LastEditTime: 2021-04-22 23:58:57
  * @LastEditors: mTm
  */
 import { 
@@ -29,7 +29,6 @@ const createConfig: CreateConfig  = {
 
 const removeConfig: RemoveConfig  = {
     tableName: 'article',
-    where: [],
     id_key: 'articleId',
 }
 
