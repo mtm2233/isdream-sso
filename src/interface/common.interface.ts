@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-21 23:32:51
- * @LastEditTime: 2021-04-22 23:58:44
+ * @LastEditTime: 2021-04-23 00:04:13
  * @LastEditors: mTm
  */
 interface KV {
@@ -28,6 +28,7 @@ interface CreateConfig {
 
 interface RemoveConfig extends CommonConfig {
     id_key: string;
+    removeId?: number | string;
 }
 
 interface ListConfig extends CommonConfig {

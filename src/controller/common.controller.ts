@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-21 23:30:39
- * @LastEditTime: 2021-04-22 23:52:16
+ * @LastEditTime: 2021-04-23 00:05:20
  * @LastEditors: mTm
  */
 import { Context } from 'koa'
@@ -56,7 +56,17 @@ class CommonController implements ControllerCommon {
 
     remove(config: RemoveConfig) {
         return async (ctx: Context, next: () => Promise<any>) => {
-        
+            try {
+                const key = config.id_key;
+                const removeId = ctx.params[key];
+                config.removeId = removeId;
+                await service.remove(config);
+                ctx.body = {
+                    message: '删除成功'
+                }
+            } catch (error) {
+                ctx.app.emit('error', error, ctx);
+            }
         }
     }
 

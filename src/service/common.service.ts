@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-21 23:31:22
- * @LastEditTime: 2021-04-22 23:52:46
+ * @LastEditTime: 2021-04-23 00:09:40
  * @LastEditors: mTm
  */
 import connection from '../app/database'
@@ -39,7 +39,15 @@ class CommonService implements ServiceCommon {
     }
 
     async remove(config: RemoveConfig) {
-        
+        const { tableName, removeId } = config;
+
+        const statement = `
+            DELETE FROM ${tableName} WHERE id = ?;
+        `;
+
+        const [result] = await connection.execute(statement, [removeId]);
+
+        return result;
     }
 
     async list(config: ListConfig) {
