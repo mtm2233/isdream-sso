@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-21 23:33:01
- * @LastEditTime: 2021-04-22 00:09:26
+ * @LastEditTime: 2021-04-23 14:00:44
  * @LastEditors: mTm
  */
 import { Context } from 'koa'
@@ -12,6 +12,7 @@ import {
     ListConfig,
     UpdateConfig,
     DetailConfig,
+    UpdateSingleConfig,
 } from '../common.interface'
 
 interface ControllerCommon {
@@ -27,6 +28,7 @@ interface ServiceCommon {
     remove(config: RemoveConfig): Promise<any>;
     list(config: ListConfig): Promise<any>;
     update(config: UpdateConfig): Promise<any>;
+    updateSingle(config: UpdateSingleConfig): Promise<any>;
     detail(config: DetailConfig): Promise<any>;
 }
 

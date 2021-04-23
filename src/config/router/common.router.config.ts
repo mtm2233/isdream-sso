@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-22 22:49:44
- * @LastEditTime: 2021-04-23 00:19:38
+ * @LastEditTime: 2021-04-23 13:49:32
  * @LastEditors: mTm
  */
 import { 
@@ -48,14 +48,16 @@ const listConfig: ListConfig  = {
 
 const updateConfig: UpdateConfig  = {
     tableName: 'article',
-    where: [],
-    data: [],
+    data: [
+        {
+            key: 'content',
+        }
+    ],
     id_key: 'articleId',
 }
 
 const detailConfig: DetailConfig  = {
     tableName: 'article',
-    where: [],
     id_key: 'articleId',
 }
 

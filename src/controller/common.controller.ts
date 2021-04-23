@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-21 23:30:39
- * @LastEditTime: 2021-04-23 00:50:09
+ * @LastEditTime: 2021-04-23 13:57:02
  * @LastEditors: mTm
  */
 import { Context } from 'koa'
@@ -94,7 +94,33 @@ class CommonController implements ControllerCommon {
 
     update(config: UpdateConfig){
         return async (ctx: Context, next: () => Promise<any>) => {
-        
+            try {
+                const updateId = ctx.params[config.id_key];
+                const body = ctx.request.body;
+                // 读取传递的值 | 默认值
+                const data = config.data.map(v => ({
+                    ...v,
+                    val: body[v.key] || v.val,
+                }))
+
+                const updateData = data.filter(v => v.val !== undefined);
+
+                if (!updateData.length) {
+                    ctx.app.emit('error', new Error(MISSING_PARAMETER), ctx);
+                    return false;
+                }
+
+                config.data = data;
+                config.updateId = updateId;
+
+                await service.update(config);
+
+                ctx.body = {
+                    message: '编辑成功'
+                }
+            } catch (error) {
+                ctx.app.emit('error', error, ctx);
+            }
         }
     }
 

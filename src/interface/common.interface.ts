@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-21 23:32:51
- * @LastEditTime: 2021-04-23 00:17:56
+ * @LastEditTime: 2021-04-23 14:02:08
  * @LastEditors: mTm
  */
 interface KV {
@@ -19,7 +19,6 @@ interface DataKV {
 
 interface CommonConfig {
     tableName: string;
-    where?: KV[];
 }
  
 interface CreateConfig {
@@ -33,12 +32,19 @@ interface RemoveConfig extends CommonConfig {
 }
 
 interface ListConfig extends CommonConfig {
-
+    where?: KV[];
 }
 
 interface UpdateConfig extends CommonConfig {
-    data: string[] | DataKV[];
+    data: DataKV[];
     id_key: string;
+    updateId?: number | string;
+}
+
+interface UpdateSingleConfig extends CommonConfig {
+    key: string;
+    val: number | string | null;
+    updateId: number | string;
 }
 
 interface DetailConfig extends CommonConfig {
@@ -51,5 +57,6 @@ export {
     RemoveConfig,
     ListConfig,
     UpdateConfig,
+    UpdateSingleConfig,
     DetailConfig,
 }

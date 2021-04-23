@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-21 23:31:22
- * @LastEditTime: 2021-04-23 00:48:32
+ * @LastEditTime: 2021-04-23 14:03:38
  * @LastEditors: mTm
  */
 import connection from '../app/database'
@@ -14,6 +14,7 @@ import {
     ListConfig,
     UpdateConfig,
     DetailConfig,
+    UpdateSingleConfig,
 } from '../interface/common.interface'
 
 class CommonService implements ServiceCommon {
@@ -79,7 +80,35 @@ class CommonService implements ServiceCommon {
     }
 
     async update(config: UpdateConfig) {
+        const { tableName, data, updateId } = config;
+
+        const promiseList = data.map(({key, val}) => this.updateSingle({
+            key,
+            val,
+            tableName,
+            updateId,
+        }))
+
+        const [result] = await Promise.all(promiseList)
+
+        return result;
+    }
+
+    async updateSingle(config: UpdateSingleConfig) {
+        const {
+            key,
+            val,
+            tableName,
+            updateId,
+        } = config;
+
+        const statement = `
+            UPDATE ${tableName} SET ${key} = ? WHERE id = ?;
+        `
         
+        const [result] = await connection.execute(statement, [val, updateId]);
+
+        return result;
     }
 
     async detail(config: DetailConfig) {
