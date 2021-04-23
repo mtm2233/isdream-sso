@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-21 23:32:51
- * @LastEditTime: 2021-04-23 14:02:08
+ * @LastEditTime: 2021-04-23 14:07:08
  * @LastEditors: mTm
  */
 interface KV {
@@ -49,6 +49,7 @@ interface UpdateSingleConfig extends CommonConfig {
 
 interface DetailConfig extends CommonConfig {
     id_key: string;
+    detailId?: number | string;
 }
 
 

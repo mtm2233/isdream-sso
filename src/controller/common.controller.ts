@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-21 23:30:39
- * @LastEditTime: 2021-04-23 13:57:02
+ * @LastEditTime: 2021-04-23 14:08:06
  * @LastEditors: mTm
  */
 import { Context } from 'koa'
@@ -126,7 +126,20 @@ class CommonController implements ControllerCommon {
 
     detail(config: DetailConfig){
         return async (ctx: Context, next: () => Promise<any>) => {
-        
+            try {
+                const key = config.id_key;
+                const detailId = ctx.params[key];
+
+                config.detailId = detailId;
+                
+                const result = await service.detail(config);
+                ctx.body = {
+                    data: result,
+                    message: '获取详细信息成功'
+                }
+            } catch (error) {
+                ctx.app.emit('error', error, ctx);
+            }
         }
     }
 }

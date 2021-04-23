@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-21 23:31:22
- * @LastEditTime: 2021-04-23 14:03:38
+ * @LastEditTime: 2021-04-23 14:10:41
  * @LastEditors: mTm
  */
 import connection from '../app/database'
@@ -112,7 +112,18 @@ class CommonService implements ServiceCommon {
     }
 
     async detail(config: DetailConfig) {
+        const {
+            tableName,
+            detailId,
+        } = config;
+
+        const statement = `
+            SELECT * FROM ${tableName} WHERE id = ?;
+        `
         
+        const [result] = await connection.execute(statement, [detailId]);
+
+        return Array.isArray(result) ? result[0] : {};
     }
 }
 
