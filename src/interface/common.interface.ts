@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-21 23:32:51
- * @LastEditTime: 2021-04-23 14:07:08
+ * @LastEditTime: 2021-04-23 14:14:30
  * @LastEditors: mTm
  */
 interface KV {
@@ -33,6 +33,7 @@ interface RemoveConfig extends CommonConfig {
 
 interface ListConfig extends CommonConfig {
     where?: KV[];
+    selectFiled?: string[];
 }
 
 interface UpdateConfig extends CommonConfig {
@@ -50,6 +51,7 @@ interface UpdateSingleConfig extends CommonConfig {
 interface DetailConfig extends CommonConfig {
     id_key: string;
     detailId?: number | string;
+    selectFiled?: string[];
 }
 
 

@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-22 22:49:44
- * @LastEditTime: 2021-04-23 13:49:32
+ * @LastEditTime: 2021-04-23 14:14:39
  * @LastEditors: mTm
  */
 import { 
@@ -44,6 +44,7 @@ const listConfig: ListConfig  = {
             compare: '=',
         }
     ],
+    selectFiled: ['id', 'content', 'user_id'],
 }
 
 const updateConfig: UpdateConfig  = {
@@ -59,6 +60,7 @@ const updateConfig: UpdateConfig  = {
 const detailConfig: DetailConfig  = {
     tableName: 'article',
     id_key: 'articleId',
+    selectFiled: ['id', 'content', 'user_id'],
 }
 
 export {

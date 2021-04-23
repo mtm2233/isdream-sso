@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-21 23:31:22
- * @LastEditTime: 2021-04-23 14:10:41
+ * @LastEditTime: 2021-04-23 14:18:42
  * @LastEditors: mTm
  */
 import connection from '../app/database'
@@ -52,7 +52,7 @@ class CommonService implements ServiceCommon {
     }
 
     async list(config: ListConfig) {
-        const { tableName, where } = config;
+        const { tableName, where, selectFiled = ['*'] } = config;
 
         const whereList: string[] = [];
         const vals: any[] = [];
@@ -70,8 +70,13 @@ class CommonService implements ServiceCommon {
             }
         });
 
+        // 是否有搜索条件
+        if (whereList.length) {
+            whereList[0] = 'WHERE ' + whereList[0];
+        }
+
         const statement = `
-            SELECT * FROM ${tableName} WHERE ${whereList.join('&&')}
+            SELECT ${selectFiled.join(',')} FROM ${tableName} ${whereList.join('&&')}
         `;
         
         const [result] = await connection.execute(statement, vals);
@@ -115,10 +120,11 @@ class CommonService implements ServiceCommon {
         const {
             tableName,
             detailId,
+            selectFiled = ['*']
         } = config;
 
         const statement = `
-            SELECT * FROM ${tableName} WHERE id = ?;
+            SELECT ${selectFiled.join(',')} FROM ${tableName} WHERE id = ?;
         `
         
         const [result] = await connection.execute(statement, [detailId]);
