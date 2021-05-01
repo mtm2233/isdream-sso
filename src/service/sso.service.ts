@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-05-01 20:46:12
- * @LastEditTime: 2021-05-01 20:53:14
+ * @LastEditTime: 2021-05-01 20:57:12
  * @LastEditors: mTm
  */
 import connection from '../app/database'
@@ -17,6 +17,19 @@ class SsoService implements ServiceSso {
         const [result] = await connection.execute(statement, [token])
 
         return result
+    }
+
+    async isExists(token: string) {
+        const statement = `
+            SELECT * FROM sso WHERE token = ?;
+        `
+        const [result] = await connection.execute(statement, [token])
+
+        if (Array.isArray(result) && result.length) {
+            return true
+        } else {
+            return false
+        }
     }
 }
 
