@@ -9,9 +9,6 @@ import { Context } from 'koa';
 import { ControllerUser } from '../interface/class/user.interface.class'
 import service from '../service/user.service';
 
-
-import md5password from '../units/password-handle'
-
 class UserController implements ControllerUser {
     async list(ctx: Context, next: () => Promise<any>) {
         try {
@@ -44,20 +41,6 @@ class UserController implements ControllerUser {
                     password
                 },
             }
-        } catch (error) {
-            ctx.app.emit('error', error, ctx)
-        }
-    }
-
-    async update(ctx: Context, next: () => Promise<any>) {
-        try {
-            ctx.params.userId = ctx.user.id;
-
-            if (ctx.request.body.password) {
-                ctx.request.body.password = md5password(md5password(ctx.request.body.password))
-            }
-            
-            await next()
         } catch (error) {
             ctx.app.emit('error', error, ctx)
         }

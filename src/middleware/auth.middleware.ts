@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-03-28 22:38:58
- * @LastEditTime: 2021-05-01 20:59:41
+ * @LastEditTime: 2021-05-01 21:50:11
  * @LastEditors: mTm
  */
 import * as jwt from 'jsonwebtoken';
@@ -59,16 +59,19 @@ const verifyLogin = async (ctx: Context, next: () => Promise<any>) => {
 const verifyAuth = async (ctx: Context, next: () => Promise<any>) => {
     try {
         const token = ctx.headers?.authorization?.replace('Bearer ', '');
+
+        if (token) {
+            const result = await ssoService.isExists(token)
+            if (!result) {
+                ctx.app.emit('error', new Error(UN_AUTH_ORIZATION), ctx);
+                return false;
+            }
+        }
+
         const user = jwt.verify(token, PUBLIC_KEY, {
             algorithms: ['RS256']
         })
-        
-        const result = await ssoService.isExists(token)
-        if (!result) {
-            ctx.app.emit('error', new Error(UN_AUTH_ORIZATION), ctx);
-            return false;
-        }
-        
+         
         ctx.user = user;
         await next()
     } catch(error) {

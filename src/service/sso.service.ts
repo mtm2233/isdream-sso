@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-05-01 20:46:12
- * @LastEditTime: 2021-05-01 20:57:12
+ * @LastEditTime: 2021-05-01 22:04:27
  * @LastEditors: mTm
  */
 import connection from '../app/database'
@@ -10,11 +10,12 @@ import connection from '../app/database'
 import { ServiceSso } from '../interface/class/sso.interface.class'
 
 class SsoService implements ServiceSso {
-    async create(token: string) {
+    async create(token: string, userId: number) {
+        await this.remove(userId);
         const statement = `
-            INSERT INTO sso (token) VALUES (?);
+            INSERT INTO sso (token, user_id) VALUES (?, ?);
         `
-        const [result] = await connection.execute(statement, [token])
+        const [result] = await connection.execute(statement, [token, userId])
 
         return result
     }
@@ -26,10 +27,19 @@ class SsoService implements ServiceSso {
         const [result] = await connection.execute(statement, [token])
 
         if (Array.isArray(result) && result.length) {
-            return true
+            return (result[0] as any).id
         } else {
             return false
         }
+    }
+
+    async remove(userId: number) {
+        const statement = `
+            DELETE FROM sso WHERE user_id = ?;
+        `
+        const [result] = await connection.execute(statement, [userId])
+
+        return result;
     }
 }
 

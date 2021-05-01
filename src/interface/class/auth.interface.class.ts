@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-19 09:28:52
- * @LastEditTime: 2021-05-01 18:54:27
+ * @LastEditTime: 2021-05-01 22:09:24
  * @LastEditors: mTm
  */
 import { Context } from 'koa'
@@ -14,6 +14,7 @@ interface ServiceAuth {
 
 interface ControllerAuth {
     login(ctx: Context, next: () => Promise<any>): Promise<any>;
+    logout(ctx: Context, next: () => Promise<any>): Promise<any>;
 }
 
 export {

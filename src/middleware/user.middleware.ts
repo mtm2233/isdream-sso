@@ -2,10 +2,12 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-19 23:06:55
- * @LastEditTime: 2021-04-19 23:38:15
+ * @LastEditTime: 2021-05-01 22:14:48
  * @LastEditors: mTm
  */
 import { Context } from 'koa'
+
+import md5password from '../units/password-handle'
 
 import {
     NAME_OR_PASSWORD_IS_REQUIRED,
@@ -39,7 +41,22 @@ const verifyUser = async (ctx: Context, next: () => Promise<any>) => {
     }
 }
 
+const updateHandler = async (ctx: Context, next: () => Promise<any>) => {
+    try {
+        ctx.params.userId = ctx.user.id;
+
+        if (ctx.request.body.password) {
+            ctx.request.body.password = md5password(md5password(ctx.request.body.password))
+        }
+        
+        await next()
+    } catch (error) {
+        ctx.app.emit('error', error, ctx)
+    }
+} 
+
 export {
-    verifyUser
+    verifyUser,
+    updateHandler,
 }
  
