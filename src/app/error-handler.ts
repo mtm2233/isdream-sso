@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-03-28 13:02:11
- * @LastEditTime: 2021-04-22 23:35:22
+ * @LastEditTime: 2021-05-01 18:51:38
  * @LastEditors: mTm
  */
 import * as errorType from '../constants/error-types';
@@ -36,7 +36,25 @@ const failCodeMap = new Map([
     [errorType.ERROR_PARAMETER, {
         message: '参数错误',
         status: 400,
-    }]
+    }],
+    [errorType.NAME_OR_PASSWORD_IS_REQUIRED, {
+        message: '用户名或密码不能为空',
+        // Bad Request
+        status: 400,
+    }],
+    [errorType.USER_ALREADY_EXISTS, {
+        message: '用户名已存在',
+        // CONFLICT
+        status: 409,
+    }],
+    [errorType.USER_DOES_NOT_EXISTS, {
+        message: "用户名不存在~",
+        status: 400,// 参数错误
+    }],
+    [errorType.PASSWORD_IS_INCORRENT,{
+        message: "密码是错误的~",
+        status: 400,// 参数错误
+    }],
 ]);
 
 const errorHandler = (error:Error, ctx: Context) => {

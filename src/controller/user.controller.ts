@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-13 22:55:27
- * @LastEditTime: 2021-04-20 00:10:16
+ * @LastEditTime: 2021-05-01 20:00:17
  * @LastEditors: mTm
  */
 import { Context } from 'koa';
@@ -18,7 +18,7 @@ class UserController implements ControllerUser {
                 message: '获取用户列表成功',
                 data: result,
                 meta: {
-                    total: 0,
+                    total: 0, 
                     page: 1,
                     pageSize: 10,
                     maxPage: 1,
@@ -26,6 +26,23 @@ class UserController implements ControllerUser {
             }
         } catch (error) {
             ctx.app.emit('error', error, ctx);
+        }
+    }
+    async create(ctx: Context, next: () => Promise<any>) {
+        try {
+            const { user, password } = ctx.request.body;
+            // 查询数据
+            await service.create(user, password);
+            // 返回数据
+            ctx.body = {
+                messgae: '用户注册成功！',
+                user: {
+                    user, 
+                    password
+                },
+            }
+        } catch (error) {
+            ctx.app.emit('error', error, ctx)
         }
     }
 }

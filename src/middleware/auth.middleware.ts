@@ -8,13 +8,51 @@
 import * as jwt from 'jsonwebtoken';
 import { Context } from 'koa'
 
+import authService from '../service/auth.service'
+import userService from '../service/user.service'
+import md5password from '../units/password-handle'
+
 import { PUBLIC_KEY } from '../app/config'
 import { 
     UN_AUTH_ORIZATION,
     CONTENT_DOES_NOT_EXISTS,
-    UN_AUTH_PERMISSION 
+    UN_AUTH_PERMISSION,
+    NAME_OR_PASSWORD_IS_REQUIRED,
+    USER_DOES_NOT_EXISTS,
+    PASSWORD_IS_INCORRENT
 } from '../constants/error-types'
-import authService from '../service/auth.service'
+
+
+const verifyLogin = async (ctx: Context, next: () => Promise<any>) => {
+    try {
+        // 1.获取用户名和密码
+        const { user, password } = ctx.request.body;
+        // 2.判断用户名或者密码不能空
+        if (!user || !password) {
+            ctx.app.emit('error', new Error(NAME_OR_PASSWORD_IS_REQUIRED), ctx)
+            return false;
+        }
+
+        // 3.判断用户名是否没有被注册
+        const result = await userService.getUserByName(user)
+        const userInfo = (result as any)[0]
+        if (!userInfo) {
+            ctx.app.emit('error', new Error(USER_DOES_NOT_EXISTS), ctx)
+            return false;
+        }
+
+        if(userInfo.password !== md5password(md5password(password))) {
+            ctx.app.emit('error', new Error(PASSWORD_IS_INCORRENT), ctx)
+            return false;
+        }
+
+        ctx.user = userInfo;
+
+        await next();
+    } catch (error) {
+        ctx.app.emit('error', error, ctx)
+    }
+}
 
 const verifyAuth = async (ctx: Context, next: () => Promise<any>) => {
     try {
@@ -51,11 +89,12 @@ const verifyPermission = async (ctx: Context, next: () => Promise<any>) => {
 
         await next();
     } catch (error) {
-        ctx.app.emit('error', error, ctx);
+        ctx.app.emit('error', error, ctx)
     }
 }
 
 export {
+    verifyLogin,
     verifyAuth,
     verifyPermission
 }

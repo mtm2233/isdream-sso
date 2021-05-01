@@ -2,17 +2,19 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-19 09:46:30
- * @LastEditTime: 2021-04-19 09:59:53
+ * @LastEditTime: 2021-05-01 19:20:27
  * @LastEditors: mTm
  */
-// import { RowDataPacket, OkPacket, ResultSetHeader } from 'mysql2'
-
+import { Context } from 'koa'
 interface ServiceUser {
     list(name: string, offset: string, size: string): Promise<any>;
+    create(user: string, password: string): Promise<any>;
+    getUserByName(name: string): Promise<any>;
 }
 
 interface ControllerUser {
-    list(ctx: any, next: () => Promise<any>): Promise<any>;
+    list(ctx: Context, next: () => Promise<any>): Promise<any>;
+    create(ctx: Context, next: () => Promise<any>): Promise<any>;
 }
 
 export {
