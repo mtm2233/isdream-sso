@@ -17,8 +17,8 @@ import HelloWorld from '@/components/HelloWorld.vue'
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+  },
 })
 </script>
 

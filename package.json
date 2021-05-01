@@ -4,11 +4,20 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "lint": "eslint --fix --ext .ts,vue src/ --no-error-on-unmatched-pattern && prettier -w -u ."
   },
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "eslint": "^7.25.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-vue": "^7.9.0",
     "less": "^4.1.1",
     "less-loader": "^8.1.1",
+    "prettier": "^2.2.1",
     "vue": "^3.0.5"
   },
   "devDependencies": {
