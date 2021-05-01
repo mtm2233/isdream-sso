@@ -2,13 +2,16 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-13 22:55:27
- * @LastEditTime: 2021-05-01 20:00:17
+ * @LastEditTime: 2021-05-01 20:34:56
  * @LastEditors: mTm
  */
 import { Context } from 'koa';
+import { ControllerUser } from '../interface/class/user.interface.class'
 import service from '../service/user.service';
 
-import { ControllerUser } from '../interface/class/user.interface.class'
+
+import md5password from '../units/password-handle'
+
 class UserController implements ControllerUser {
     async list(ctx: Context, next: () => Promise<any>) {
         try {
@@ -37,10 +40,24 @@ class UserController implements ControllerUser {
             ctx.body = {
                 messgae: '用户注册成功！',
                 user: {
-                    user, 
+                    user,
                     password
                 },
             }
+        } catch (error) {
+            ctx.app.emit('error', error, ctx)
+        }
+    }
+
+    async update(ctx: Context, next: () => Promise<any>) {
+        try {
+            ctx.params.userId = ctx.user.id;
+
+            if (ctx.request.body.password) {
+                ctx.request.body.password = md5password(md5password(ctx.request.body.password))
+            }
+            
+            await next()
         } catch (error) {
             ctx.app.emit('error', error, ctx)
         }

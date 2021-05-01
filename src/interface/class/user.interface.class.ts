@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-19 09:46:30
- * @LastEditTime: 2021-05-01 19:20:27
+ * @LastEditTime: 2021-05-01 20:36:05
  * @LastEditors: mTm
  */
 import { Context } from 'koa'
@@ -15,6 +15,7 @@ interface ServiceUser {
 interface ControllerUser {
     list(ctx: Context, next: () => Promise<any>): Promise<any>;
     create(ctx: Context, next: () => Promise<any>): Promise<any>;
+    update(ctx: Context, next: () => Promise<any>): Promise<any>;
 }
 
 export {
