@@ -2,14 +2,16 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-05-02 18:08:19
- * @LastEditTime: 2021-05-02 21:00:47
+ * @LastEditTime: 2021-05-02 21:10:40
  * @LastEditors: mTm
 -->
 <template>
   <div>Home</div>
   <div>count: {{ count }}</div>
-  <button @click="countAdd">count++</button>
-  <button @click="goPage">detail</button>
+  <ASpace>
+    <AButton type="primary" @click="countAdd">count++</AButton>
+    <AButton @click="goPage">detail</AButton>
+  </ASpace>
 </template>
 <script lang="ts">
 import { computed, defineComponent } from 'vue'

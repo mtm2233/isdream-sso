@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-01 22:19:41
- * @LastEditTime: 2021-05-01 22:26:24
+ * @LastEditTime: 2021-05-02 21:08:58
  * @LastEditors: mTm
  */
 import { defineConfig } from 'vite'
@@ -19,6 +19,13 @@ export default defineConfig({
       },
       { find: /^~/, replacement: '' },
     ],
+  },
+  css: {
+    preprocessorOptions: {
+      less: {
+        javascriptEnabled: true,
+      },
+    },
   },
   plugins: [vue()],
 })
