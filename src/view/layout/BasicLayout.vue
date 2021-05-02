@@ -1,26 +1,21 @@
 <!--
  * @Description: 
  * @Author: mTm
- * @Date: 2021-05-01 22:19:41
- * @LastEditTime: 2021-05-02 18:12:15
+ * @Date: 2021-05-02 18:08:19
+ * @LastEditTime: 2021-05-02 18:15:19
  * @LastEditors: mTm
 -->
 <template>
+  <div>Main</div>
   <RouterView></RouterView>
 </template>
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'App',
+  name: 'Main',
+  setup() {
+    return {}
+  },
 })
 </script>
-
-<style lang="less">
-@import './assets/styles/index.less';
-
-body {
-  overflow-y: auto;
-}
-</style>
