@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-05-02 18:08:19
- * @LastEditTime: 2021-05-02 21:10:40
+ * @LastEditTime: 2021-05-02 21:34:54
  * @LastEditors: mTm
 -->
 <template>
@@ -11,6 +11,7 @@
   <ASpace>
     <AButton type="primary" @click="countAdd">count++</AButton>
     <AButton @click="goPage">detail</AButton>
+    <AButton @click="changePrimary">changePrimary</AButton>
   </ASpace>
 </template>
 <script lang="ts">
@@ -30,12 +31,18 @@ export default defineComponent({
         name: 'Details',
       })
     }
+    const changePrimary = () => {
+      ;(window as any).less.modifyVars({
+        '@primary-color': '#52C41A',
+      })
+    }
 
     const countAdd = () => store.commit('countAdd')
     return {
       count,
       goPage,
       countAdd,
+      changePrimary,
     }
   },
 })

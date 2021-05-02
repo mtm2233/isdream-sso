@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-04-28 16:15:02
- * @LastEditTime: 2021-05-02 21:20:40
+ * @LastEditTime: 2021-05-02 21:40:58
  * @LastEditors: mTm
  */
 import { App, Plugin } from 'vue'
