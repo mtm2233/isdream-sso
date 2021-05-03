@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-02 18:07:17
- * @LastEditTime: 2021-05-03 20:48:46
+ * @LastEditTime: 2021-05-03 21:08:34
  * @LastEditors: mTm
  */
 import Nprogress from 'nprogress'
@@ -11,6 +11,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import config from '@/config'
 import { store } from '@/store'
 import db from '@/libs/db'
+import bootstrap from '@/libs/bootstrap'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -52,6 +53,7 @@ router.beforeEach(async (to, from, next) => {
     next({ name: config.loginName })
     return false
   }
+  bootstrap()
   next()
 })
 
