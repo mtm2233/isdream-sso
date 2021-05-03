@@ -6,9 +6,9 @@
  * @LastEditors: mTm
  */
 import { App, Plugin } from 'vue'
-import { Button, Space, Card } from 'ant-design-vue'
+import { ConfigProvider, Button, Space, Card } from 'ant-design-vue'
 
-const plugins: Plugin[] = [Button, Space, Card]
+const plugins: Plugin[] = [ConfigProvider, Button, Space, Card]
 
 export const setupAntd = (app: App, options: any = {}): void => {
   // app.config.globalProperties.$message = message
