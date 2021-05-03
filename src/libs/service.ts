@@ -2,12 +2,14 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-04-23 20:34:54
- * @LastEditTime: 2021-04-25 21:58:51
+ * @LastEditTime: 2021-05-03 16:00:20
  * @LastEditors: mTm
  */
 import axios, { AxiosRequestConfig } from 'axios'
 import qs from 'qs'
 import Nprogress from 'nprogress'
+
+import { message } from 'ant-design-vue'
 
 // axios.defaults.baseURL = 'https:api.isdream.cn/'
 
@@ -37,7 +39,7 @@ axios.interceptors.response.use(
     }
   },
   error => {
-    alert(`异常请求：${JSON.stringify(error.message)}`)
+    message.error(`异常请求：${JSON.stringify(error.message)}`)
   },
 )
 class MyRequest {
