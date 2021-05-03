@@ -2,14 +2,16 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-04-23 20:34:54
- * @LastEditTime: 2021-05-03 16:00:20
+ * @LastEditTime: 2021-05-03 20:24:15
  * @LastEditors: mTm
  */
 import axios, { AxiosRequestConfig } from 'axios'
 import qs from 'qs'
 import Nprogress from 'nprogress'
 
-import { message } from 'ant-design-vue'
+import config from '@/config'
+
+import handlerError from './common/handlerError'
 
 // axios.defaults.baseURL = 'https:api.isdream.cn/'
 
@@ -19,8 +21,18 @@ axios.defaults.headers.post['Content-Type'] =
 //设置超时
 axios.defaults.timeout = 10000
 
+let tokenConfig: any = {}
+
+// 请求拦截
 axios.interceptors.request.use(
-  config => {
+  (config: any) => {
+    const { method = 'GET', params = {}, url } = config
+    if (method === 'GET') {
+      config.url = url + '?' + qs.stringify(params)
+    }
+    if (tokenConfig.value) {
+      config[tokenConfig.position][tokenConfig.key] = tokenConfig.value
+    }
     Nprogress.start()
     return config
   },
@@ -29,27 +41,28 @@ axios.interceptors.request.use(
   },
 )
 
+// 响应拦截
 axios.interceptors.response.use(
-  response => {
-    if (response.status == 200) {
-      Nprogress.done()
-      return Promise.resolve(response)
-    } else {
-      return Promise.reject(response)
-    }
+  res => {
+    Nprogress.done()
+    return res
   },
   error => {
-    message.error(`异常请求：${JSON.stringify(error.message)}`)
+    if (error.constructor.name === 'Cancel') return Promise.reject(error)
+    Nprogress.done()
+    return handlerError(error)
   },
 )
 class MyRequest {
-  request(config: AxiosRequestConfig): Promise<any> {
-    const { method = 'GET', data = {}, params = {} } = config
-    let { url } = config
-    console.log()
-    if (method === 'GET') {
-      url += '?' + qs.stringify(params)
+  // 设置 token, 注: 由 commit('user/setToken') 触发
+  setToken(token: string) {
+    tokenConfig = {
+      ...config.token,
+      value: token ? config.token.value.replace('TOKEN', token) : null,
     }
+  }
+  request(config: AxiosRequestConfig): Promise<any> {
+    const { method = 'GET', data = {}, url } = config
     return new Promise((resolve, reject) => {
       axios({
         method,

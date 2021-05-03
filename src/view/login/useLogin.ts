@@ -2,12 +2,13 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-03 17:23:51
- * @LastEditTime: 2021-05-03 17:56:59
+ * @LastEditTime: 2021-05-03 20:06:59
  * @LastEditors: mTm
  */
 import { reactive, ref, UnwrapRef } from 'vue'
-
 import { FormState } from './config/interface'
+
+import { store } from '@/store'
 
 import { login } from '@/api/login'
 
@@ -29,7 +30,7 @@ class UseLogin {
   onSubmit = () => {
     this.formRef.value.validate().then(() => {
       login(this.formState).then(res => {
-        console.log(res)
+        store.commit('setToken', res.token)
       })
     })
   }

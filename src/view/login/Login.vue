@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-05-03 16:13:37
- * @LastEditTime: 2021-05-03 17:53:31
+ * @LastEditTime: 2021-05-03 20:07:12
  * @LastEditors: mTm
 -->
 <template>
@@ -40,20 +40,16 @@ export default defineComponent({
   name: 'Login',
   setup() {
     const userInput = ref()
-    const { formState, formRef, onSubmit, resetForm } = useLogin.values()
 
     onMounted(() => {
       userInput.value.focus()
     })
 
     return {
-      formState,
-      formRef,
+      ...useLogin.values(),
       labelCol: { span: 6 },
       wrapperCol: { span: 18 },
       rules,
-      onSubmit,
-      resetForm,
       userInput,
     }
   },
