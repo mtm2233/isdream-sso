@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-01 22:19:41
- * @LastEditTime: 2021-05-02 21:50:28
+ * @LastEditTime: 2021-05-03 15:16:19
  * @LastEditors: mTm
  */
 import { defineConfig } from 'vite'
@@ -26,6 +26,22 @@ export default defineConfig({
     preprocessorOptions: {
       less: {
         javascriptEnabled: true,
+      },
+    },
+  },
+  base: './', // 设置打包路径
+  server: {
+    host: '0.0.0.0',
+    port: 9001, // 设置服务启动端口号
+    open: true, // 设置服务启动时是否自动打开浏览器
+    https: false,
+    cors: true, // 允许跨域
+    // 设置代理
+    proxy: {
+      '^/api/.*': {
+        target: 'https://api.isdream.cn/sso',
+        changeOrigin: true, // 将主机标头的来源更改为目标URL,
+        rewrite: path => path.replace(/^\/api/, ''),
       },
     },
   },

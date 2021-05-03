@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-05-02 18:08:19
- * @LastEditTime: 2021-05-02 21:34:54
+ * @LastEditTime: 2021-05-03 15:19:01
  * @LastEditors: mTm
 -->
 <template>
@@ -15,9 +15,11 @@
   </ASpace>
 </template>
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+
+import { login } from '@/api/login'
 
 export default defineComponent({
   name: 'Home',
@@ -38,6 +40,15 @@ export default defineComponent({
     }
 
     const countAdd = () => store.commit('countAdd')
+
+    onMounted(() => {
+      login({
+        user: 'isdream',
+        password: '123456',
+      }).then(res => {
+        console.log(res)
+      })
+    })
     return {
       count,
       goPage,
