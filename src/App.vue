@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-05-01 22:19:41
- * @LastEditTime: 2021-05-02 21:41:05
+ * @LastEditTime: 2021-05-03 15:25:24
  * @LastEditors: mTm
 -->
 <template>
@@ -11,9 +11,14 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import loadProvides from '@/libs/provides'
 
 export default defineComponent({
   name: 'App',
+  setup() {
+    loadProvides()
+    return {}
+  },
 })
 </script>
 
