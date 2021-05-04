@@ -1,6 +1,7 @@
 node_modules
 .DS_Store
 dist
+dist1
 dist-ssr
 *.local
 public/color.less

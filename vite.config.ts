@@ -30,6 +30,9 @@ export default defineConfig({
     },
   },
   base: './', // 设置打包路径
+  build: {
+    outDir: './dist1'  
+  },
   server: {
     host: '0.0.0.0',
     port: 9001, // 设置服务启动端口号

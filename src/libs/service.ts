@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-04-23 20:34:54
- * @LastEditTime: 2021-05-03 20:24:15
+ * @LastEditTime: 2021-05-03 21:25:22
  * @LastEditors: mTm
  */
 import axios, { AxiosRequestConfig } from 'axios'
@@ -13,7 +13,7 @@ import config from '@/config'
 
 import handlerError from './common/handlerError'
 
-// axios.defaults.baseURL = 'https:api.isdream.cn/'
+axios.defaults.baseURL = 'https://api.isdream.cn/sso'
 
 //post请求头
 axios.defaults.headers.post['Content-Type'] =
@@ -27,6 +27,7 @@ let tokenConfig: any = {}
 axios.interceptors.request.use(
   (config: any) => {
     const { method = 'GET', params = {}, url } = config
+    config.url = url.replace(/^\/api/, '')
     if (method === 'GET') {
       config.url = url + '?' + qs.stringify(params)
     }

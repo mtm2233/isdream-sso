@@ -6,7 +6,7 @@
  * @LastEditors: mTm
  */
 import Nprogress from 'nprogress'
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
 import config from '@/config'
 import { store } from '@/store'
@@ -42,7 +42,7 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 })
 
