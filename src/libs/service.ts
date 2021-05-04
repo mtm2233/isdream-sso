@@ -32,7 +32,7 @@ axios.interceptors.request.use(
     if (import.meta.env.PROD) {
       config.url = url.replace(/^\/api/, '')
     }
-    if (method === 'GET') {
+    if (method === 'GET' && qs.stringify(params)) {
       config.url = url + '?' + qs.stringify(params)
     }
     if (tokenConfig.value) {
