@@ -2,13 +2,15 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-03 17:23:51
- * @LastEditTime: 2021-05-03 21:06:56
+ * @LastEditTime: 2021-05-04 17:18:22
  * @LastEditors: mTm
  */
 import { reactive, ref, UnwrapRef } from 'vue'
 import { FormState } from './config/interface'
 
 import { store } from '@/store'
+import { router } from '@/router'
+import config from '@/config'
 
 import { login } from '@/api/login'
 
@@ -31,6 +33,7 @@ class UseLogin {
     this.formRef.value.validate().then(() => {
       login(this.formState).then(res => {
         store.commit('setToken', res.token)
+        router.push({ name: config.mainName })
       })
     })
   }

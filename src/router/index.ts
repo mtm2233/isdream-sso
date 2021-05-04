@@ -2,11 +2,11 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-02 18:07:17
- * @LastEditTime: 2021-05-03 21:08:34
+ * @LastEditTime: 2021-05-04 17:16:11
  * @LastEditors: mTm
  */
 import Nprogress from 'nprogress'
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 import config from '@/config'
 import { store } from '@/store'
@@ -42,18 +42,20 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 })
 
 router.beforeEach(async (to, from, next) => {
   Nprogress.start()
   first()
-  if (!verifyLogin() && to.name !== config.loginName) {
-    next({ name: config.loginName })
-    return false
+  if (!verifyLogin()) {
+    if (to.name !== config.loginName) {
+      next({ name: config.loginName })
+    }
+  } else {
+    bootstrap()
   }
-  bootstrap()
   next()
 })
 
