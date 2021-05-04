@@ -24,6 +24,7 @@ const {
   MYSQL_DATABASE,
   MYSQL_USER,
   MYSQL_PASSWORD,
+  NGINX_PREFIX,
 } = process.env;
 
 export {
@@ -35,4 +36,5 @@ export {
   MYSQL_PASSWORD,
   PUBLIC_KEY,
   PRIVATE_KEY,
+  NGINX_PREFIX,
 };
