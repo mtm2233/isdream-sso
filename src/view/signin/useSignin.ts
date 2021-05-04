@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-03 17:23:51
- * @LastEditTime: 2021-05-04 17:18:22
+ * @LastEditTime: 2021-05-04 22:45:15
  * @LastEditors: mTm
  */
 import { reactive, ref, UnwrapRef } from 'vue'
@@ -12,9 +12,9 @@ import { store } from '@/store'
 import { router } from '@/router'
 import config from '@/config'
 
-import { login } from '@/api/user'
+import { signin } from '@/api/user'
 
-class UseLogin {
+class UseSignin {
   public formState: UnwrapRef<FormState> = reactive({
     user: undefined,
     password: undefined,
@@ -31,9 +31,8 @@ class UseLogin {
 
   onSubmit = () => {
     this.formRef.value.validate().then(() => {
-      login(this.formState).then(res => {
-        store.commit('setToken', res.token)
-        router.push({ name: config.mainName })
+      signin(this.formState).then(() => {
+        router.push({ name: config.loginName })
       })
     })
   }
@@ -54,4 +53,4 @@ class UseLogin {
   }
 }
 
-export default new UseLogin()
+export default new UseSignin()

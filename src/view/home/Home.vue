@@ -2,49 +2,21 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-05-02 18:08:19
- * @LastEditTime: 2021-05-03 20:42:46
+ * @LastEditTime: 2021-05-04 22:53:23
  * @LastEditors: mTm
 -->
 <template>
-  <div>Home</div>
-  <div>count: {{ count }}</div>
-  <ASpace>
-    <AButton type="primary" @click="countAdd">count++</AButton>
-    <AButton @click="goPage">detail</AButton>
-    <AButton @click="changePrimary">changePrimary</AButton>
-  </ASpace>
+  <div>
+    <h2>Home</h2>
+  </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
-import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'Home',
   setup() {
-    const router = useRouter()
-    const store = useStore()
-
-    const count = computed(() => store.state.count)
-    const goPage = () => {
-      router.push({
-        name: 'Details',
-      })
-    }
-    const changePrimary = () => {
-      ;(window as any).less.modifyVars({
-        '@primary-color': '#52C41A',
-      })
-    }
-
-    const countAdd = () => store.commit('countAdd')
-
-    return {
-      count,
-      goPage,
-      countAdd,
-      changePrimary,
-    }
+    return {}
   },
 })
 </script>

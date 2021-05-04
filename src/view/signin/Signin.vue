@@ -1,8 +1,8 @@
 <!--
  * @Description: 
  * @Author: mTm
- * @Date: 2021-05-03 16:13:37
- * @LastEditTime: 2021-05-04 22:55:03
+ * @Date: 2021-05-04 20:57:03
+ * @LastEditTime: 2021-05-04 22:55:18
  * @LastEditors: mTm
 -->
 <template>
@@ -20,7 +20,7 @@
       <AInputPassword v-model:value="formState.password" />
     </AFormItem>
     <AFormItem :wrapper-col="{ span: 18, offset: 6 }">
-      <AButton type="primary" @click="onSubmit">登录</AButton>
+      <AButton type="primary" @click="onSubmit">注册</AButton>
       <AButton style="margin-left: 10px" @click="resetForm">重置</AButton>
     </AFormItem>
   </AForm>
@@ -30,10 +30,10 @@ import { defineComponent, onMounted, ref } from 'vue'
 
 import { rules } from './config/index'
 
-import useLogin from './useLogin'
+import useSignin from './useSignin'
 
 export default defineComponent({
-  name: 'Login',
+  name: 'Signin',
   setup() {
     const userInput = ref()
 
@@ -42,7 +42,7 @@ export default defineComponent({
     })
 
     return {
-      ...useLogin.values(),
+      ...useSignin.values(),
       labelCol: { span: 6 },
       wrapperCol: { span: 18 },
       rules,

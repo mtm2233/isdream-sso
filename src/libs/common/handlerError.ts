@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-03 20:11:10
- * @LastEditTime: 2021-05-03 20:39:06
+ * @LastEditTime: 2021-05-04 22:52:38
  * @LastEditors: mTm
  */
 import { message as $message } from 'ant-design-vue'
@@ -10,7 +10,6 @@ import { message as $message } from 'ant-design-vue'
 import { store } from '@/store'
 import { router } from '@/router'
 import config from '@/config'
-
 
 let changeRouting = false
 
@@ -45,6 +44,7 @@ const failCodeMap = new Map([
   [404, { msg: '请求地址错误' }],
   [405, { msg: '请求方式错误' }],
   [408, { msg: '请求超时', handler: popFailed }],
+  [409, { handler: popFailed }],
   [422, { msg: '验证错误', handler: popFailed }],
   [500, { msg: '服务器内部错误', handler: popFailed }],
   [501, { msg: '服务未实现' }],

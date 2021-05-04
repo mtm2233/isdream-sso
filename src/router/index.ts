@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-02 18:07:17
- * @LastEditTime: 2021-05-04 17:16:11
+ * @LastEditTime: 2021-05-04 21:33:11
  * @LastEditors: mTm
  */
 import Nprogress from 'nprogress'
@@ -28,14 +28,30 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/view/home/Home.vue'),
       },
       {
-        path: 'details',
-        name: 'Details',
-        component: () => import('@/view/details/Details.vue'),
-      },
-      {
-        path: 'login',
-        name: config.loginName,
-        component: () => import('@/view/login/Login.vue'),
+        path: 'user',
+        name: 'User',
+        redirect: {
+          name: config.loginName,
+        },
+        component: () => import('@/view/layout/LoginLayout.vue'),
+        children: [
+          {
+            path: 'login',
+            name: config.loginName,
+            meta: {
+              verifyLogin: false,
+            },
+            component: () => import('@/view/login/Login.vue'),
+          },
+          {
+            path: 'signin',
+            name: 'Signin',
+            meta: {
+              verifyLogin: false,
+            },
+            component: () => import('@/view/signin/Signin.vue'),
+          },
+        ],
       },
     ],
   },
@@ -49,7 +65,10 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   Nprogress.start()
   first()
-  if (!verifyLogin()) {
+  if (to.meta.verifyLogin === undefined) {
+    to.meta.verifyLogin = true
+  }
+  if (to.meta.verifyLogin && !verifyLogin()) {
     if (to.name !== config.loginName) {
       next({ name: config.loginName })
     }
