@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-01 22:19:41
- * @LastEditTime: 2021-05-05 21:36:15
+ * @LastEditTime: 2021-05-05 21:47:46
  * @LastEditors: mTm
  */
 import { defineConfig } from 'vite'
@@ -29,7 +29,7 @@ export default defineConfig({
       },
     },
   },
-  base: 'https://sso.isdream.cn/', // 设置打包路径
+  base: 'https://sso.isdream.cn/', // 开发或生产环境服务的公共基础路径
   server: {
     host: '0.0.0.0',
     port: 9001, // 设置服务启动端口号
