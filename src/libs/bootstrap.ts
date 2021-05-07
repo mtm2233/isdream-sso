@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-03 20:59:20
- * @LastEditTime: 2021-05-04 16:26:34
+ * @LastEditTime: 2021-05-07 23:25:11
  * @LastEditors: mTm
  */
 import { store } from '@/store'
@@ -17,7 +17,7 @@ export default function (): void {
     ssoProject({ project_id: id })
   }
 
-  if (url) {
+  if (url && token) {
     const newPath = `${url}?token=${token}`
     location.href = newPath
   }
