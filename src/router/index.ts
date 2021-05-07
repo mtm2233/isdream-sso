@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-02 18:07:17
- * @LastEditTime: 2021-05-05 12:14:16
+ * @LastEditTime: 2021-05-07 17:34:43
  * @LastEditors: mTm
  */
 import Nprogress from 'nprogress'
@@ -89,7 +89,9 @@ router.afterEach(to => {
 export { router }
 
 const first = () => {
-  store.commit('setToken', db.get('token'))
+  if (!store.state.token && db.get('token')) {
+    store.commit('setToken', db.get('token'))
+  }
 }
 
 const verifyLogin = (): boolean => {
