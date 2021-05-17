@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-03 20:59:20
- * @LastEditTime: 2021-05-17 12:59:32
+ * @LastEditTime: 2021-05-17 20:57:17
  * @LastEditors: mTm
  */
 import { store } from '@/store'
@@ -40,5 +40,12 @@ export default function (): void {
       const newPath = `${url}?token=${token}`
       location.href = newPath
     }
+  }
+
+  // sso token失效
+  if (url && pathname === '/user/logout') {
+    store.commit('setToken', null)
+    const newPath = `${url}`
+    location.href = newPath
   }
 }
