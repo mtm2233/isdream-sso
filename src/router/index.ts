@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-02 18:07:17
- * @LastEditTime: 2021-05-07 17:34:43
+ * @LastEditTime: 2021-05-17 10:26:37
  * @LastEditors: mTm
  */
 import Nprogress from 'nprogress'
@@ -50,6 +50,14 @@ const routes: Array<RouteRecordRaw> = [
               verifyLogin: false,
             },
             component: () => import('@/view/signin/Signin.vue'),
+          },
+          {
+            path: 'logout',
+            name: config.logoutName,
+            meta: {
+              verifyLogin: false,
+            },
+            component: () => import('@/view/logout/Logout.vue'),
           },
         ],
       },

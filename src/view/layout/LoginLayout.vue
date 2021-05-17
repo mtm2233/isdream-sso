@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-05-04 20:58:06
- * @LastEditTime: 2021-05-04 22:37:54
+ * @LastEditTime: 2021-05-17 11:06:07
  * @LastEditors: mTm
 -->
 <template>
@@ -19,7 +19,7 @@
           >用户注册</a-typography-link
         >
         <a-typography-link
-          v-show="routerName === 'Signin'"
+          v-show="routerName === 'Signin' || routerName === 'Logout'"
           @click="goPage('Login')"
           >用户登录</a-typography-link
         >
@@ -51,17 +51,20 @@ export default defineComponent({
 <style scoped lang="less">
 .login {
   height: 100%;
+  padding: 0 20px;
+  position: relative;
   &-box {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
-    width: 500px;
+    max-width: 500px;
+    width: calc(100% - 40px);
     padding: 50px 0 10px 0;
     border-radius: 15px;
     &-form {
-      padding: 0 100px;
+      padding: 0 20px;
     }
     &-action {
       display: flex;
