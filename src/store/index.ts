@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-02 20:49:33
- * @LastEditTime: 2021-05-03 20:49:36
+ * @LastEditTime: 2021-05-17 11:32:20
  * @LastEditors: mTm
  */
 import { createStore, Store } from 'vuex'
@@ -15,6 +15,7 @@ export const store: Store<any> = createStore({
   state: {
     count: 0,
     token: '',
+    redirectUrl: '',
     // userId: null,
     // username: '',
     // avatar: '',
@@ -22,6 +23,11 @@ export const store: Store<any> = createStore({
   mutations: {
     countAdd(state): void {
       state.count++
+    },
+
+    changeState(state: any, data: { key: string; value: any }) {
+      const { key, value } = data
+      state[key] = value
     },
 
     setToken(state, token) {

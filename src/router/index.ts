@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-02 18:07:17
- * @LastEditTime: 2021-05-17 10:26:37
+ * @LastEditTime: 2021-05-17 12:54:42
  * @LastEditors: mTm
  */
 import Nprogress from 'nprogress'
@@ -25,6 +25,9 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'home',
         name: 'Home',
+        meta: {
+          verifyLogin: true,
+        },
         component: () => import('@/view/home/Home.vue'),
       },
       {
@@ -55,7 +58,7 @@ const routes: Array<RouteRecordRaw> = [
             path: 'logout',
             name: config.logoutName,
             meta: {
-              verifyLogin: false,
+              verifyLogin: true,
             },
             component: () => import('@/view/logout/Logout.vue'),
           },
@@ -73,15 +76,9 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   Nprogress.start()
   first()
-  if (to.meta.verifyLogin === undefined) {
-    to.meta.verifyLogin = true
-  }
-  if (to.meta.verifyLogin && !verifyLogin()) {
-    if (to.name !== config.loginName) {
-      next({ name: config.loginName })
-    }
-  } else {
-    bootstrap()
+  bootstrap()
+  if (!verifyLogin() && to.name !== config.loginName && to.meta.verifyLogin) {
+    next({ name: config.loginName })
   }
   next()
 })
