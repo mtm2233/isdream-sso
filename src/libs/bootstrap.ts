@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-03 20:59:20
- * @LastEditTime: 2021-05-17 20:57:17
+ * @LastEditTime: 2021-11-02 22:46:41
  * @LastEditors: mTm
  */
 import { store } from '@/store'
@@ -11,6 +11,7 @@ import { logout } from '@/api/user'
 
 export default function (): void {
   const token = store.state.token
+  const tokenStartTime = store.state.tokenStartTime
   const searchParams = new URLSearchParams(location.search)
   const url = searchParams.get('url') || store.state.redirectUrl
   const id = searchParams.get('id')
@@ -37,7 +38,7 @@ export default function (): void {
         location.href = newPath
       })
     } else {
-      const newPath = `${url}?token=${token}`
+      const newPath = `${url}?token=${token}&startTime=${tokenStartTime}`
       location.href = newPath
     }
   }

@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-03 17:23:51
- * @LastEditTime: 2021-05-04 17:18:22
+ * @LastEditTime: 2021-11-03 20:53:47
  * @LastEditors: mTm
  */
 import { reactive, ref, UnwrapRef } from 'vue'
@@ -32,7 +32,7 @@ class UseLogin {
   onSubmit = () => {
     this.formRef.value.validate().then(() => {
       login(this.formState).then(res => {
-        store.commit('setToken', res.token)
+        store.commit('setToken', { token: res.token, isdb: true })
         router.push({ name: config.mainName })
       })
     })

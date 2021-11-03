@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-02 20:49:33
- * @LastEditTime: 2021-05-17 11:32:20
+ * @LastEditTime: 2021-11-03 21:38:16
  * @LastEditors: mTm
  */
 import { createStore, Store } from 'vuex'
@@ -15,6 +15,7 @@ export const store: Store<any> = createStore({
   state: {
     count: 0,
     token: '',
+    tokenStartTime: '',
     redirectUrl: '',
     // userId: null,
     // username: '',
@@ -30,14 +31,16 @@ export const store: Store<any> = createStore({
       state[key] = value
     },
 
-    setToken(state, token) {
+    setToken(state, { token = null, isdb = true } = {}) {
       service.setToken(token)
       state.token = token
-      db.set({
-        key: 'token',
-        value: token,
-        expires: config.token.expires * 1000,
-      })
+      if (isdb) {
+        db.set({
+          key: 'token',
+          value: token,
+          expires: config.token.expires * 1000,
+        })
+      }
     },
   },
   actions: {},

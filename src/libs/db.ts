@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-04-26 22:00:13
- * @LastEditTime: 2021-04-28 22:41:53
+ * @LastEditTime: 2021-11-03 21:43:47
  * @LastEditors: mTm
  */
 import config from '@/config'
@@ -32,6 +32,24 @@ class DB {
 
   prefixKey(key: string) {
     return `${this.prefix}-${key}`
+  }
+
+  getStartTime(key: string): any {
+    if (!this.verify()) {
+      return false
+    }
+    let item: any = this.storage.getItem(this.prefixKey(key))
+    if (!item) {
+      return item
+    }
+    //先将拿到的试着进行json转为对象的形式
+    try {
+      item = JSON.parse(item)
+    } catch {
+      //如果不行就不是json的字符串，就直接返回
+      return item
+    }
+    return item.startTime || null
   }
 
   get(key: string): any {

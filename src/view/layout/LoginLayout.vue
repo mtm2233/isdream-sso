@@ -12,7 +12,7 @@
         <RouterView />
       </div>
       <div class="login-box-action">
-        <a-typography-link>找回密码</a-typography-link>
+        <!-- <a-typography-link>找回密码</a-typography-link> -->
         <a-typography-link
           v-show="routerName === 'Login'"
           @click="goPage('Signin')"

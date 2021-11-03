@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-02 18:07:17
- * @LastEditTime: 2021-05-17 20:50:07
+ * @LastEditTime: 2021-11-03 21:38:26
  * @LastEditors: mTm
  */
 import Nprogress from 'nprogress'
@@ -12,6 +12,8 @@ import config from '@/config'
 import { store } from '@/store'
 import db from '@/libs/db'
 import bootstrap from '@/libs/bootstrap'
+
+import { auth } from '@/api/user'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -75,7 +77,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   Nprogress.start()
-  first()
+  await first()
   bootstrap()
   if (!verifyLogin() && to.name !== config.loginName && to.meta.verifyLogin) {
     next({ name: config.loginName })
@@ -93,12 +95,17 @@ router.afterEach(to => {
 
 export { router }
 
-const first = () => {
+const first = async () => {
   if (!store.state.token && db.get('token')) {
-    store.commit('setToken', db.get('token'))
+    store.commit('setToken', { token: db.get('token'), isdb: false })
+    store.commit('changeState', {
+      key: 'tokenStartTime',
+      value: db.getStartTime('token'),
+    })
+    await auth()
   }
 }
 
 const verifyLogin = (): boolean => {
-  return store.state.token ? true : false
+  return !!store.state.token
 }
