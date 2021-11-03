@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-10 23:50:09
- * @LastEditTime: 2021-05-01 22:15:13
+ * @LastEditTime: 2021-11-03 21:13:20
  * @LastEditors: mTm
  */
 import * as Router from 'koa-router';
@@ -19,5 +19,6 @@ const userRouter = new Router({prefix: '/user'});
 userRouter.post('/', verifyUser, userController.create);
 userRouter.patch('/', verifyAuth, updateHandler, commonConttroller.update(updateConfig));
 userRouter.get('/list', verifyAuth, limit, userController.list);
+userRouter.get('/auth', verifyAuth, userController.auth);
 
 export default userRouter;

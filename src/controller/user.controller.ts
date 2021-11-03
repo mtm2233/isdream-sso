@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-13 22:55:27
- * @LastEditTime: 2021-05-01 20:34:56
+ * @LastEditTime: 2021-11-03 21:13:19
  * @LastEditors: mTm
  */
 import { Context } from 'koa';
@@ -43,6 +43,12 @@ class UserController implements ControllerUser {
             }
         } catch (error) {
             ctx.app.emit('error', error, ctx)
+        }
+    }
+
+    async auth(ctx: any, next: () => Promise<any>) {
+        ctx.body = {
+            messgae: 'token正常'
         }
     }
 }
