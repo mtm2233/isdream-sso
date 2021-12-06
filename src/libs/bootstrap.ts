@@ -45,7 +45,7 @@ export default function (): void {
 
   // sso token失效
   if (url && pathname === '/user/logout') {
-    store.commit('setToken', null)
+    store.commit('setToken')
     const newPath = `${url}`
     location.href = newPath
   }
