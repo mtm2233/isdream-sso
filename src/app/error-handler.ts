@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-03-28 13:02:11
- * @LastEditTime: 2021-05-01 18:51:38
+ * @LastEditTime: 2021-12-06 21:59:58
  * @LastEditors: mTm
  */
 import * as errorType from '../constants/error-types';
@@ -44,6 +44,11 @@ const failCodeMap = new Map([
     }],
     [errorType.USER_ALREADY_EXISTS, {
         message: '用户名已存在',
+        // CONFLICT
+        status: 409,
+    }],
+    [errorType.EMAIL_ALREADY_EXISTS, {
+        message: '该邮箱已注册',
         // CONFLICT
         status: 409,
     }],

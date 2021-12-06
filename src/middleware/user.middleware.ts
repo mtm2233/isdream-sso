@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-19 23:06:55
- * @LastEditTime: 2021-05-01 22:14:48
+ * @LastEditTime: 2021-12-06 22:00:10
  * @LastEditors: mTm
  */
 import { Context } from 'koa'
@@ -12,6 +12,7 @@ import md5password from '../units/password-handle'
 import {
     NAME_OR_PASSWORD_IS_REQUIRED,
     USER_ALREADY_EXISTS,
+    EMAIL_ALREADY_EXISTS,
 } from '../constants/error-types'
 
 import service from '../service/user.service'
@@ -19,7 +20,7 @@ import service from '../service/user.service'
 const verifyUser = async (ctx: Context, next: () => Promise<any>) => {
     try {
         // 1.获取用户名和密码
-        const { user, password } = ctx.request.body;
+        const { user, password, email } = ctx.request.body;
         // 2.判断用户名或者密码不能空
         if (!user || !password) {
             ctx.app.emit('error', new Error(NAME_OR_PASSWORD_IS_REQUIRED), ctx)
@@ -31,6 +32,13 @@ const verifyUser = async (ctx: Context, next: () => Promise<any>) => {
             if (Array.isArray(result) && result.length) {
                 ctx.app.emit('error', new Error(USER_ALREADY_EXISTS), ctx)
                 return false;
+            }
+            if (email) {
+                const resultEmail = await service.getUserByEmail(email)
+                if (Array.isArray(resultEmail) && resultEmail.length) {
+                    ctx.app.emit('error', new Error(EMAIL_ALREADY_EXISTS), ctx)
+                    return false;
+                }
             }
             await next();
         } catch (error) {

@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: mTm
  * @Date: 2021-04-13 22:55:27
- * @LastEditTime: 2021-11-03 21:13:19
+ * @LastEditTime: 2021-12-06 21:50:55
  * @LastEditors: mTm
  */
 import { Context } from 'koa';
@@ -30,15 +30,16 @@ class UserController implements ControllerUser {
     }
     async create(ctx: Context, next: () => Promise<any>) {
         try {
-            const { user, password } = ctx.request.body;
+            const { user, password, email } = ctx.request.body;
             // 查询数据
-            await service.create(user, password);
+            await service.create(user, password, email);
             // 返回数据
             ctx.body = {
                 messgae: '用户注册成功！',
                 user: {
                     user,
-                    password
+                    password,
+                    email,
                 },
             }
         } catch (error) {
