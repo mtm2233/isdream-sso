@@ -1,53 +1,99 @@
 <!--
  * @Description: 
  * @Author: mTm
- * @Date: 2021-05-03 16:13:37
- * @LastEditTime: 2021-05-04 22:55:03
+ * @Date: 2021-12-06 22:08:19
+ * @LastEditTime: 2021-12-06 23:17:41
  * @LastEditors: mTm
 -->
 <template>
-  <AForm
-    ref="formRef"
-    :model="formState"
-    :rules="rules"
-    :label-col="labelCol"
-    :wrapper-col="wrapperCol"
-  >
-    <AFormItem label="用户名" name="user">
-      <AInput ref="userInput" v-model:value="formState.user" />
-    </AFormItem>
-    <AFormItem label="密码" name="password">
-      <AInputPassword v-model:value="formState.password" />
-    </AFormItem>
-    <AFormItem :wrapper-col="{ span: 18, offset: 6 }">
-      <AButton type="primary" @click="onSubmit">登录</AButton>
-      <AButton style="margin-left: 10px" @click="resetForm">重置</AButton>
-    </AFormItem>
-  </AForm>
+  <section :class="{ active: active }">
+    <div :class="{ container: true, active: active }">
+      <div class="user signinBx">
+        <div class="imgBx">
+          <img src="../../assets/1.jpg" alt="" />
+        </div>
+        <div class="formBx">
+          <form>
+            <h2>Sign In</h2>
+            <input
+              v-model="loginForm.user"
+              type="text"
+              placeholder="Username"
+            />
+            <input
+              v-model="loginForm.password"
+              type="password"
+              placeholder="Password"
+            />
+            <input type="button" value="Login" @click="login" />
+            <p class="signup">
+              don't have an account?
+              <a href="#" @click="toggleForm">Sign up.</a>
+            </p>
+          </form>
+        </div>
+      </div>
+
+      <div class="user signupBx">
+        <div class="formBx">
+          <form>
+            <h2>Create an account</h2>
+            <input
+              v-model="signinForm.user"
+              type="text"
+              placeholder="Username"
+            />
+            <input
+              v-model="signinForm.email"
+              type="text"
+              placeholder="Email Address"
+            />
+            <input
+              v-model="signinForm.password"
+              type="password"
+              placeholder="Create Password"
+            />
+            <input
+              v-model="signinForm.confirmPassword"
+              type="password"
+              placeholder="Confirm Password"
+            />
+            <input type="button" value="Sign up" @click="signin(toggleForm)" />
+            <p class="signup">
+              Already have an account?
+              <a href="#" @click="toggleForm">Sign in.</a>
+            </p>
+          </form>
+        </div>
+        <div class="imgBx">
+          <img src="../../assets/2.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
-
-import { rules } from './config/index'
-
+import { defineComponent, ref } from 'vue'
 import useLogin from './useLogin'
+import useSignin from './useSignin'
 
 export default defineComponent({
   name: 'Login',
   setup() {
-    const userInput = ref()
-
-    onMounted(() => {
-      userInput.value.focus()
-    })
+    const active = ref(false)
+    const toggleForm = () => {
+      active.value = !active.value
+    }
 
     return {
       ...useLogin.values(),
-      labelCol: { span: 6 },
-      wrapperCol: { span: 18 },
-      rules,
-      userInput,
+      ...useSignin.values(),
+      active,
+      toggleForm,
     }
   },
 })
 </script>
+<style lang="less" scoped>
+@import './style.less';
+</style>

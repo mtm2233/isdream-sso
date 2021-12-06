@@ -2,7 +2,7 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-02 18:07:17
- * @LastEditTime: 2021-11-03 21:38:26
+ * @LastEditTime: 2021-12-06 22:09:40
  * @LastEditors: mTm
  */
 import Nprogress from 'nprogress'
@@ -38,7 +38,7 @@ const routes: Array<RouteRecordRaw> = [
         redirect: {
           name: config.loginName,
         },
-        component: () => import('@/view/layout/LoginLayout.vue'),
+        component: () => import('@/view/layout/BasicLayout.vue'),
         children: [
           {
             path: 'login',

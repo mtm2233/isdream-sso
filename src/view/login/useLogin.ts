@@ -2,11 +2,12 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-03 17:23:51
- * @LastEditTime: 2021-11-03 20:53:47
+ * @LastEditTime: 2021-12-06 23:08:52
  * @LastEditors: mTm
  */
-import { reactive, ref, UnwrapRef } from 'vue'
-import { FormState } from './config/interface'
+import { reactive, UnwrapRef } from 'vue'
+import { LoginForm } from './config/interface'
+import { message as $message } from 'ant-design-vue'
 
 import { store } from '@/store'
 import { router } from '@/router'
@@ -15,41 +16,30 @@ import config from '@/config'
 import { login } from '@/api/user'
 
 class UseLogin {
-  public formState: UnwrapRef<FormState> = reactive({
-    user: undefined,
-    password: undefined,
+  public loginForm: UnwrapRef<LoginForm> = reactive({
+    user: '',
+    password: '',
   })
-  public formRef = ref()
 
-  constructor() {
-    this.init()
-  }
-
-  init = () => {
-    return false
-  }
-
-  onSubmit = () => {
-    this.formRef.value.validate().then(() => {
-      login(this.formState).then(res => {
+  login = () => {
+    if (this.loginForm.user && this.loginForm.password) {
+      login(this.loginForm).then(res => {
+        this.loginForm.user = ''
+        this.loginForm.password = ''
+        $message.success('登录成功，正在跳转')
         store.commit('setToken', { token: res.token, isdb: true })
         router.push({ name: config.mainName })
       })
-    })
-  }
-
-  resetForm = () => {
-    this.formRef.value.resetFields()
+    } else {
+      $message.warning('账号密码不能为空')
+    }
   }
 
   values = () => {
-    const { formState, formRef, onSubmit, resetForm, init } = this
+    const { loginForm, login } = this
     return {
-      formState,
-      formRef,
-      onSubmit,
-      resetForm,
-      init,
+      loginForm,
+      login,
     }
   }
 }

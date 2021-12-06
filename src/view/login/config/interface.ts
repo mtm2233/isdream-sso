@@ -2,12 +2,19 @@
  * @Description:
  * @Author: mTm
  * @Date: 2021-05-03 17:20:24
- * @LastEditTime: 2021-05-03 17:20:40
+ * @LastEditTime: 2021-12-06 22:57:54
  * @LastEditors: mTm
  */
-interface FormState {
-  user: string | undefined
-  password: string | undefined
+interface LoginForm {
+  user: string
+  password: string
 }
 
-export { FormState }
+interface SigninForm {
+  user: string
+  password: string
+  confirmPassword: string
+  email?: string
+}
+
+export { LoginForm, SigninForm }
