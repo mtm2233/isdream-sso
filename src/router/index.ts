@@ -49,14 +49,6 @@ const routes: Array<RouteRecordRaw> = [
             component: () => import('@/view/login/Login.vue'),
           },
           {
-            path: 'signin',
-            name: 'Signin',
-            meta: {
-              verifyLogin: false,
-            },
-            component: () => import('@/view/signin/Signin.vue'),
-          },
-          {
             path: 'logout',
             name: config.logoutName,
             meta: {
